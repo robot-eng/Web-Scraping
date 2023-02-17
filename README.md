@@ -108,6 +108,26 @@ Hewlett Packard 250 G6 Dark Ash Silver
 .............
 ```
 
-```Python
+<p>Code 4</p>
 
+```Python
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+from time import sleep
+def stock_price():
+    url = "https://www.google.com/finance/quote/RJH:BKK?sa=X&ved=2ahUKEwii0_S0-Jv9AhXlRmwGHQ64CJYQ3ecFegQIIhAY"
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text,"html.parser")
+    price = soup.find("div",{"class":"YMlKec fxKbKc"}).text
+    return price
+price = stock_price()
+print("\nRJH : "+str(price))
+while 1:
+    new_price = stock_price()
+    if new_price != price:
+        price = stock_price()
+        print("\nRJH : "+str(price))
+    sleep(1)
+```
 
